@@ -85,7 +85,6 @@ public class CoinFlipGame {
             }
         }
 
-        scanner.close(); // Close the Scanner resource
         return new int[] { totalPlayerScore, totalComputerScore }; // Return the updated total scores
     }
 
