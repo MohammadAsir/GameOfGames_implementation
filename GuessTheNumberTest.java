@@ -38,8 +38,8 @@ public class GuessTheNumber {
             // Generate the number to guess
             int numToGuess = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
 
-            // For testing
-            System.out.println(" num to guess is: " + numToGuess);  
+            // For testing, print the number that is being guessed
+            System.out.println("For testing, the number to guess is: " + numToGuess);  // This will print the number
 
             int maxAttempts = (upperLimit - lowerLimit + 1) / 2;
             System.out.println("You have " + maxAttempts + " attempts to guess the number!");
@@ -56,7 +56,7 @@ public class GuessTheNumber {
                     guess = scanner.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a valid number.");
-                    scanner.next(); 
+                    scanner.next(); // Clear the invalid input
                     continue;
                 }
 
@@ -82,4 +82,30 @@ public class GuessTheNumber {
             }
 
             if (!correctGuess) {
-                System.out.
+                System.out.println("Game Over! The correct number was " + numToGuess);
+                cScore++;  // Increment the computer's score
+            }
+
+            // Show the current scores after the round
+            System.out.println("Current Scores - Player: " + pScore + " | Computer: " + cScore);
+
+            // Ask the player if they want to play again
+            System.out.print("Do you want to play again? (yes/no): ");
+            String replay = scanner.next().toLowerCase();
+
+            if (replay.equals("no")) {
+                play = false;  // End the game
+                if (pScore > cScore) {
+                    System.out.println("Congratulations! You won the game with a score of " + pScore + " to " + cScore);
+                } else if (cScore > pScore) {
+                    System.out.println("Sorry, the computer won with a score of " + cScore + " to " + pScore);
+                } else {
+                    System.out.println("It's a tie! Both scored " + pScore + ".");
+                }
+                System.out.println("Thanks for playing!");
+            }
+        }
+
+        scanner.close(); 
+    }
+}
