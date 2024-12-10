@@ -10,8 +10,8 @@ public class GuessTheNumber {
         Random random = new Random();
 
         // Initialize scores for the player and the computer
-        int pScore = 0;  // Player's score
-        int cScore = 0;  // Computer's score
+        int pScore = 0;  
+        int cScore = 0; 
 
         System.out.println("Welcome to the Guess the Number Game!");
 
@@ -29,7 +29,7 @@ public class GuessTheNumber {
             System.out.print("Upper limit: ");
             int upperLimit = scanner.nextInt();
 
-            // Ensure the upper limit is greater than the lower limit
+            // make sure the upper limit is greater than the lower limit
             if (upperLimit <= lowerLimit) {
                 System.out.println("Invalid range. Upper limit must be greater than the lower limit.");
                 continue;  // Go back to asking for the range
@@ -38,8 +38,8 @@ public class GuessTheNumber {
             // Generate the number to guess
             int numToGuess = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
 
-            // For testing, print the number that is being guessed
-            System.out.println("For testing, the number to guess is: " + numToGuess);  // This will print the number
+            // For testing
+            System.out.println("For testing, the number to guess is: " + numToGuess);  
 
             int maxAttempts = (upperLimit - lowerLimit + 1) / 2;
             System.out.println("You have " + maxAttempts + " attempts to guess the number!");
@@ -56,7 +56,7 @@ public class GuessTheNumber {
                     guess = scanner.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a valid number.");
-                    scanner.next(); // Clear the invalid input
+                    scanner.next(); 
                     continue;
                 }
 
