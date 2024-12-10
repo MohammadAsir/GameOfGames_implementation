@@ -29,7 +29,7 @@ public class GuessTheNumber {
             System.out.print("Upper limit: ");
             int upperLimit = scanner.nextInt();
 
-            // Ensure the upper limit is greater than the lower limit
+            // make sure the upper limit is greater than the lower limit
             if (upperLimit <= lowerLimit) {
                 System.out.println("Invalid range. Upper limit must be greater than the lower limit.");
                 continue;  // Go back to asking for the range
