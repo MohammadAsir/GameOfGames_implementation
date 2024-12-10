@@ -12,25 +12,26 @@ public class GuessTheNumber {
         // Get initial scores for the player and the computer
         System.out.println("Welcome to the Guess the Number Game!");
 
-        int playerScore = 0;
-        int computerScore = 0;
+        int pScore = 0;
+        int cScore = 0;
 
-        // Input initial scores
+      //handle exceptions after entering score
         System.out.print("Enter your initial score: ");
         try {
-            playerScore = scanner.nextInt();
+            pScore = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Defaulting your score to 0.");
-            playerScore = 0;
+            pScore = 0;
             scanner.next(); 
         }
-
+        
+        //handle exceptions after entering score
         System.out.print("Enter computer's initial score: ");
         try {
-            computerScore = scanner.nextInt();
+            cScore = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Defaulting computer's score to 0.");
-            computerScore = 0;
+            cScore = 0;
             scanner.next(); 
         }
 
@@ -38,7 +39,7 @@ public class GuessTheNumber {
 
         while (play) {
 
-            System.out.println("\nCurrent Scores - Player: " + playerScore + " | Computer: " + computerScore);
+            System.out.println("\nCurrent Scores|| Player: " + pScore + " | Computer: " + cScore);
             System.out.println("Please specify a range for the number guessing!");
             System.out.print("Lower limit: ");
             int lowerLimit = scanner.nextInt();
@@ -51,12 +52,12 @@ public class GuessTheNumber {
                 continue;
             }
 
-            int numberToGuess = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
+            int numToGuess = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
             int maxAttempts = (upperLimit - lowerLimit + 1) / 2;
             System.out.println("You have " + maxAttempts + " attempts to guess the number!");
 
             int attempts = 0;
-            boolean guessedCorrectly = false;
+            boolean CorrectGuess = false;
 
             while (attempts < maxAttempts) {
                 System.out.print("Guess a number between " + lowerLimit + " and " + upperLimit + ": ");
@@ -77,12 +78,12 @@ public class GuessTheNumber {
                 }
 
                 attempts++;
-                if (guess == numberToGuess) {
+                if (guess == numToGuess) {
                     System.out.println("You Won!");
-                    guessedCorrectly = true;
-                    playerScore++; 
+                    CorrectGuess = true;
+                    pScore++; 
                     break;
-                } else if (guess < numberToGuess) {
+                } else if (guess < numToGuess) {
                     System.out.println("Incorrect! The number is higher.");
                 } else {
                     System.out.println("Incorrect! The number is lower.");
@@ -91,12 +92,12 @@ public class GuessTheNumber {
                 System.out.println("You have " + (maxAttempts - attempts) + " attempts left.");
             }
 
-            if (!guessedCorrectly) {
-                System.out.println("Game Over! The correct number was " + numberToGuess);
-                computerScore++; 
+            if (!CorrectGuess) {
+                System.out.println("Game Over! The correct number was " + numToGuess);
+                cScore++; 
             }
 
-            System.out.println("Current Scores - Player: " + playerScore + " | Computer: " + computerScore);
+            System.out.println("Current Scores - Player: " + pScore + " | Computer: " + cScore);
 
             
             System.out.print("Do you want to play again? (yes/no): ");
@@ -104,12 +105,12 @@ public class GuessTheNumber {
 
             if (replay.equals("no")) {
                 play = false;
-                if (playerScore > computerScore) {
-                    System.out.println("Congratulations! You won the game with a score of " + playerScore + " to " + computerScore);
-                } else if (computerScore > playerScore) {
-                    System.out.println("Sorry, the computer won with a score of " + computerScore + " to " + playerScore);
+                if (pScore > cScore) {
+                    System.out.println("Congratulations! You won the game with a score of " + pScore + " to " + cScore);
+                } else if (cScore > pScore) {
+                    System.out.println("Sorry, the computer won with a score of " + cScore + " to " + pScore);
                 } else {
-                    System.out.println("It's a tie! Both scored " + playerScore + ".");
+                    System.out.println("It's a tie! Both scored " + pScore + ".");
                 }
                 System.out.println("Thanks for playing!");
             }
