@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GuessTheNumber {
+public class GuessTheNumberTest {
 
     public static void main(String[] args) {
 
@@ -10,8 +10,8 @@ public class GuessTheNumber {
         Random random = new Random();
 
         // Initialize scores for the player and the computer
-        int pScore = 0;  
-        int cScore = 0; 
+        int pScore = 0;
+        int cScore = 0;
 
         System.out.println("Welcome to the Guess the Number Game!");
 
@@ -39,7 +39,7 @@ public class GuessTheNumber {
             int numToGuess = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
 
             // For testing
-            System.out.println("For testing, the number to guess is: " + numToGuess);  
+            System.out.println("For testing, the number to guess is: " + numToGuess);
 
             int maxAttempts = (upperLimit - lowerLimit + 1) / 2;
             System.out.println("You have " + maxAttempts + " attempts to guess the number!");
@@ -56,7 +56,7 @@ public class GuessTheNumber {
                     guess = scanner.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input. Please enter a valid number.");
-                    scanner.next(); 
+                    scanner.next();
                     continue;
                 }
 
@@ -66,7 +66,7 @@ public class GuessTheNumber {
                     continue;
                 }
                 attempts++;
-                
+
                 if (guess == numToGuess) {
                     System.out.println("You Won!");
                     correctGuess = true;
@@ -106,6 +106,6 @@ public class GuessTheNumber {
             }
         }
 
-        scanner.close(); 
+        scanner.close();
     }
 }

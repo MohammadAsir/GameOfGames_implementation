@@ -45,11 +45,12 @@ public class GameOfGames {
                     playerWins = coinFlipScores[0];
                     computerWins = coinFlipScores[1];
                     break;
-//                case 3:
-//                    int[] guessTheNumberScores = GuessTheNumber.playGame(playerWins, computerWins);
-//                    playerWins = guessTheNumberScores[0];
-//                    computerWins = guessTheNumberScores[1];
-//                    break;
+                case 3:
+                    int[] guessTheNumberScores = GuessTheNumber.playGame(playerWins, computerWins);
+
+                    playerWins = guessTheNumberScores[0];
+                    computerWins = guessTheNumberScores[1];
+                    break;
 //                case 4:
 //                    int[] evenAndOddScores = EvenAndOdd.playGame(playerWins, computerWins);
 //                    playerWins = evenAndOddScores[0];
