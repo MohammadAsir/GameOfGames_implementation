@@ -7,29 +7,6 @@ public class ReadThreadGame
     private int position;
     private boolean player1Turn = true;
     private boolean gameActive = true;
-    private int playerScore;
-    private int computerScore;
-
-    /**
-     * This method plays the Red Thread game given initial player and computer scores.
-     * It updates these scores based on the game's outcome and returns the new totals.
-     *
-     * @param initialPlayerScore the initial score of the player
-     * @param initialComputerScore the initial score of the computer
-     * @return an array of two integers: {updatedPlayerScore, updatedComputerScore}
-     */
-    public static int[] playRedThreadGame(int initialPlayerScore, int initialComputerScore)
-    {
-        ReadThreadGame game = new ReadThreadGame();
-        game.setScores(initialPlayerScore, initialComputerScore);
-        game.startGame();
-        return new int[] { game.playerScore, game.computerScore };
-    }
-
-    public void setScores(int playerScore, int computerScore) {
-        this.playerScore = playerScore;
-        this.computerScore = computerScore;
-    }
 
     public void startGame() 
     {
@@ -39,26 +16,35 @@ public class ReadThreadGame
         while (gameActive) 
         {
             displayGameState();
-            System.out.println((player1Turn ? "Player" : "Computer") + ", pick how many threads?");
-            int threads = scanner.nextInt();
-
-            while (threads > total / 2 || threads <= 0) 
+            if (player1Turn) 
             {
-                System.out.println("Invalid number! You can only pick up to half of the remaining threads. Try again:");
-                threads = scanner.nextInt();
+                System.out.println("Player 1, pick threads?");
+                int threads = scanner.nextInt();
+
+                while (threads > total / 2 || threads <= 0) 
+                {
+                    System.out.println("Invalid number! You can only pick up to half of the remaining threads. Try again:");
+                    threads = scanner.nextInt();
+                }
+
+                drawThreads(threads);
+            } 
+            else 
+            {
+                int threads = computerPick();
+                System.out.println("Computer picks " + threads + " threads.");
+                drawThreads(threads);
             }
 
-            drawThreads(threads);
             if (isRedThreadDrawn()) 
             {
-                System.out.println((player1Turn ? "Player" : "Computer") + " drew the red thread!");
+                System.out.println((player1Turn ? "Player 1" : "Computer") + " drew the red thread!");
                 handleGameEnd(true);
                 break;
             }
 
             switchTurns();
         }
-
         scanner.close();
     }
 
@@ -91,32 +77,28 @@ public class ReadThreadGame
         System.out.println("Current threads left: " + total);
     }
 
+    private int computerPick() 
+    {
+        Random random = new Random();
+        int maxThreads = Math.max(1, total / 2); 
+        return random.nextInt(maxThreads)+1;
+    }
+
     private void handleGameEnd(boolean redThreadDrawn) 
     {
         gameActive = false;
-        Scanner scanner = new Scanner(System.in);
         if (redThreadDrawn) 
         {
-            if (player1Turn) {
-                playerScore++;
-            } else {
-                computerScore++;
-            }
-            System.out.println("Congratulations! " + (player1Turn ? "Player" : "Computer") + " wins!");
+            System.out.println("Congratulations! " + (player1Turn ? "Player 1" : "Player 2") + " wins!");
         }
-
         System.out.println("Would you like to play again? (yes/no)");
+        Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine().toLowerCase();
         if (choice.equals("yes")) 
         {
             resetGame();
             startGame();
-        } 
-        else 
-        {
-            System.out.println("Final Scores: ");
-            System.out.println("Player: " + playerScore);
-            System.out.println("Computer: " + computerScore);
+        } else {
             System.out.println("Thank you for playing!");
         }
     }
@@ -129,16 +111,7 @@ public class ReadThreadGame
 
     public static void main(String[] args) 
     {
-        if (args.length < 2) {
-            System.out.println("Please provide initial player and computer scores as command line arguments.");
-            return;
-        }
-
-        int initialPlayerScore = Integer.parseInt(args[0]);
-        int initialComputerScore = Integer.parseInt(args[1]);
-
-        int[] updatedScores = playRedThreadGame(initialPlayerScore, initialComputerScore);
-        // After the game ends, the updated scores have already been displayed.
-        // If needed, they are also available in updatedScores.
+        ReadThreadGame game = new ReadThreadGame();
+        game.startGame();
     }
 }
