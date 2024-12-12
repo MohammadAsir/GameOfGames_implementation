@@ -2,20 +2,20 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class CoinFlip_Test {
+
     /**
-     * The main method serves as the entry point for the Coin Flip game.
-     * It initializes the game, handles user input, validates guesses, and manages the series of games.
-     * Players compete against the computer in a best-of series, and scores are updated after each series.
-     * The game continues until the player decides to stop.
+     * This method simulates a coin flip game in Test Mode.
+     * It provides additional information (cheat mode) about the coin flip outcome.
+     * It returns the updated player and computer scores after the series.
      *
-     * parameter arguments Command-line arguments, where args[0] is the initial total player score and args[1] is the initial total computer score.
-     * 
-     * The scores are updated after each series based on the winner for use within the game of games full game
+     * @param initialPlayerScore Initial player score.
+     * @param initialComputerScore Initial computer score.
+     * @return Updated player and computer scores.
      */
-    public static void main(String[] args) {
+    public static int[] playCoinFlipGameTestMode(int initialPlayerScore, int initialComputerScore) {
         // Parse total scores from command-line arguments
-        int totalPlayerScore = Integer.parseInt(args[0]);
-        int totalComputerScore = Integer.parseInt(args[1]);
+        int totalPlayerScore = initialPlayerScore;
+        int totalComputerScore = initialComputerScore;
 
         // Initialize Scanner for user input and Random for coin flips
         Scanner scanner = new Scanner(System.in);
@@ -36,11 +36,11 @@ public class CoinFlip_Test {
             // Play the series until one player reaches the required number of wins
             while (playerWins < gamesToWin && computerWins < gamesToWin) {
                 System.out.println("\nFlipping the coin...");
-                
+
                 // Randomly determine the coin flip result ("H" for heads, "T" for tails)
                 String coinSide = random.nextBoolean() ? "H" : "T";
 
-                // Display the result in cheat mode (for testing purposes)
+                // Test Mode: Show the coin flip result (cheat mode)
                 System.out.println("[Cheat Mode] Computer flipped: " + coinSide);
 
                 // Prompt the user for their guess and validate it
@@ -88,7 +88,8 @@ public class CoinFlip_Test {
             }
         }
 
-        scanner.close(); // Close the Scanner resource
+        // Return the updated total scores
+        return new int[] { totalPlayerScore, totalComputerScore };
     }
 
     /**

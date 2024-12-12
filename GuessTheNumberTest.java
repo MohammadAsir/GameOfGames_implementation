@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class GuessTheNumberTest {
 
-    public static void main(String[] args) {
-
+    public static int[] playGuessTheNumberTestMode(int initialPlayerScore, int initialComputerScore) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
         // Initialize scores for the player and the computer
-        int pScore = 0;
-        int cScore = 0;
+        int pScore = initialPlayerScore;  // Player's score
+        int cScore = initialComputerScore;  // Computer's score
 
-        System.out.println("Welcome to the Guess the Number Game!");
+        System.out.println("Welcome to the Guess the Number Game (Test Mode)!");
 
         boolean play = true;
 
@@ -29,7 +28,7 @@ public class GuessTheNumberTest {
             System.out.print("Upper limit: ");
             int upperLimit = scanner.nextInt();
 
-            // make sure the upper limit is greater than the lower limit
+            // Make sure the upper limit is greater than the lower limit
             if (upperLimit <= lowerLimit) {
                 System.out.println("Invalid range. Upper limit must be greater than the lower limit.");
                 continue;  // Go back to asking for the range
@@ -94,18 +93,11 @@ public class GuessTheNumberTest {
             String replay = scanner.next().toLowerCase();
 
             if (replay.equals("no")) {
-                play = false;  // End the game
-                if (pScore > cScore) {
-                    System.out.println("Congratulations! You won the game with a score of " + pScore + " to " + cScore);
-                } else if (cScore > pScore) {
-                    System.out.println("Sorry, the computer won with a score of " + cScore + " to " + pScore);
-                } else {
-                    System.out.println("It's a tie! Both scored " + pScore + ".");
-                }
-                System.out.println("Thanks for playing!");
+                play = false;  // End the test mode
+                System.out.println("Exiting test mode and returning to the main menu.");
             }
         }
 
-        scanner.close();
+        return new int[] { pScore, cScore }; // Return updated scores
     }
 }
