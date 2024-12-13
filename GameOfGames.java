@@ -79,15 +79,15 @@ public class GameOfGames {
 //                        computerWins = evenAndOddScores[1];
 //                    }
 //                    break;
-//                case 5:
-//                    if (isTestMode) {
-//                        TestRedThreadGame.playGameTestMode(playerWins, computerWins);
-//                    } else {
-//                        int[] redThreadScores = RedThreadGame.playGame(playerWins, computerWins);
-//                        playerWins = redThreadScores[0];
-//                        computerWins = redThreadScores[1];
-//                    }
-//                    break;
+                case 5:
+                    if (isTestMode) {
+                        RedThreadGameTest.playGame(playerWins, computerWins);
+                    } else {
+                        int[] redThreadScores = RedThreadGame.playGame(playerWins, computerWins);
+                        playerWins = redThreadScores[0];
+                        computerWins = redThreadScores[1];
+                    }
+                    break;
                 default:
                     System.out.println("Invalid choice, please select again.");
             }
