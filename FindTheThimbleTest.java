@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class TestFindTheThimble {
+public class FindTheThimbleTest {
 
     public static int[] playGameTestMode(int playerScore, int computerScore) {
         Scanner scanner = new Scanner(System.in);
@@ -59,9 +59,27 @@ public class TestFindTheThimble {
             System.out.println("The game is a tie!");
         }
 
-        // Return the updated scores
-        System.out.println("Final Scores - Player: " + userPoints + " | Computer: " + computerPoints);
-        return new int[]{userPoints, computerPoints};
+        // Update the scores
+        playerScore += userPoints;
+        computerScore += computerPoints;
+
+        // Ask if the user wants to play again or return to the menu
+        String replayChoice;
+        do {
+            System.out.print("\nDo you want to play again? (yes/no): ");
+            replayChoice = scanner.nextLine().toLowerCase();
+            if (!(replayChoice.equals("yes") || replayChoice.equals("no"))) {
+                System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+            }
+        } while (!(replayChoice.equals("yes") || replayChoice.equals("no")));
+
+        // If the player chooses "yes", restart the game; otherwise, return to Test Mode menu
+        if (replayChoice.equals("yes")) {
+            return playGameTestMode(playerScore, computerScore); // Recursively call the test game with updated scores
+        } else {
+            System.out.println("Returning to Test Mode menu...");
+            return new int[]{playerScore, computerScore}; // Return to Test Mode menu
+        }
     }
 
     // Method to handle "best out of" number input

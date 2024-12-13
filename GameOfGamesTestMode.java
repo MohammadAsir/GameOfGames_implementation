@@ -2,20 +2,22 @@ import java.util.Scanner;
 
 public class GameOfGamesTestMode {
 
-    public static void  startTestMode() {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         int playerWins = 0;
         int computerWins = 0;
 
+        System.out.println("Test Mode - Welcome to the Game of Games!");
+
         // Game loop for Test Mode
         while (true) {
-            System.out.println("Test Mode - Welcome to the Game of Games!");
-            System.out.println("Select a game to play (Test Mode):");
-            System.out.println("1. TestFind the Thimble");
-            System.out.println("2. Coin Flip");
-            System.out.println("3. Guess The Number");
-            System.out.println("4. Even and Odd");
-            System.out.println("5. Red Thread");
+            System.out.println("\nSelect a game to play (Test Mode):");
+            System.out.println("1. Test Find the Thimble");
+            System.out.println("2. Test Coin Flip");
+            System.out.println("3. Test Guess the Number");
+            System.out.println("4. Test Even and Odd");
+            System.out.println("5. Test Red Thread");
             System.out.println("6. Quit");
 
             String input = scanner.nextLine();
@@ -31,10 +33,10 @@ public class GameOfGamesTestMode {
                 break;  // Exit the game loop
             }
 
-            // Based on the user's choice, call the respective game method with testMode enabled
+            // Based on the user's choice, call the respective test mode game method
             switch (choice) {
                 case 1:
-                    int[] findTheThimbleScores = TestFindTheThimble.playGameTestMode(playerWins, computerWins);
+                    int[] findTheThimbleScores = FindTheThimbleTest.playGameTestMode(playerWins, computerWins);
                     playerWins = findTheThimbleScores[0];
                     computerWins = findTheThimbleScores[1];
                     break;
@@ -48,7 +50,14 @@ public class GameOfGamesTestMode {
                     playerWins = guessTheNumberScores[0];
                     computerWins = guessTheNumberScores[1];
                     break;
-                    // Implement cases for other games here...
+                case 4:
+                    System.out.println("Test Even and Odd is not implemented yet.");
+                    break;
+//                case 5:
+//                    int[] redThreadScores = RedThreadGameTest.playGameTestMode(playerWins, computerWins);
+//                    playerWins = redThreadScores[0];
+//                    computerWins = redThreadScores[1];
+//                    break;
                 default:
                     System.out.println("Invalid choice, please select again.");
             }
