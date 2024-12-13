@@ -17,20 +17,21 @@ public class GameOfGames {
             System.out.println("3. Guess The Number");
             System.out.println("4. Even and Odd");
             System.out.println("5. Red Thread");
-            System.out.println("6. Quit");
+            System.out.println("Q. Quit");
 
-            // Using nextLine to consume the full line and convert to an integer
-            String input = scanner.nextLine();
-            int choice;
-            try {
-                choice = Integer.parseInt(input); // Convert string input to integer
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Please enter a valid number.");
-                continue; // If input is not a valid number, continue to the next iteration
+            // Read the user's input
+            String input = scanner.nextLine().trim().toUpperCase(); // Trim and convert to uppercase for consistent comparison
+
+            if (input.equals("Q")) {
+                break; // Exit the game loop
             }
 
-            if (choice == 6) {
-                break;  // Exit the game loop
+            int choice;
+            try {
+                choice = Integer.parseInt(input); // Convert string input to an integer
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number or 'Q' to quit.");
+                continue; // If input is not a valid number, continue to the next iteration
             }
 
             // Based on the user's choice, call the respective game method
@@ -50,11 +51,11 @@ public class GameOfGames {
                     playerWins = guessTheNumberScores[0];
                     computerWins = guessTheNumberScores[1];
                     break;
-//                case 4:
-//                    int[] evenAndOddScores = EvenAndOdd.playGame(playerWins, computerWins);
-//                    playerWins = evenAndOddScores[0];
-//                    computerWins = evenAndOddScores[1];
-//                    break;
+                case 4:
+                    int[] evenAndOddScores = EvenOddGame.startGame(playerWins, computerWins);
+                    playerWins = evenAndOddScores[0];
+                    computerWins = evenAndOddScores[1];
+                    break;
                 case 5:
                     int[] redThreadScores = RedThreadGame.playGame(playerWins, computerWins);
                     playerWins = redThreadScores[0];

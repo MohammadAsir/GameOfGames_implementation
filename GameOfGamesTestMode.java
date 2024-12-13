@@ -18,19 +18,21 @@ public class GameOfGamesTestMode {
             System.out.println("3. Test Guess the Number");
             System.out.println("4. Test Even and Odd");
             System.out.println("5. Test Red Thread");
-            System.out.println("6. Quit");
+            System.out.println("Q. Test_Quit");
 
-            String input = scanner.nextLine();
+            // Read the user's input
+            String input = scanner.nextLine().trim().toUpperCase(); // Trim and convert to uppercase for consistent comparison
+
+            if (input.equals("Q")) {
+                break;  // Exit the game loop
+            }
+
             int choice;
             try {
                 choice = Integer.parseInt(input); // Convert string input to integer
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Please enter a valid number.");
+                System.out.println("Invalid input! Please enter a valid number or 'Q' to quit.");
                 continue; // If input is not a valid number, continue to the next iteration
-            }
-
-            if (choice == 6) {
-                break;  // Exit the game loop
             }
 
             // Based on the user's choice, call the respective test mode game method
@@ -51,13 +53,16 @@ public class GameOfGamesTestMode {
                     computerWins = guessTheNumberScores[1];
                     break;
                 case 4:
+                    int[] evenoddgametest = EvenOddGameTest.startGameTestMode(playerWins, computerWins);
+                    playerWins = evenoddgametest[0];
+                    computerWins = evenoddgametest[1];
                     System.out.println("Test Even and Odd is not implemented yet.");
                     break;
-//                case 5:
-//                    int[] redThreadScores = RedThreadGameTest.playGameTestMode(playerWins, computerWins);
-//                    playerWins = redThreadScores[0];
-//                    computerWins = redThreadScores[1];
-//                    break;
+                case 5:
+                    int[] redThreadScores = RedThreadGameTest.playGameTestMode(playerWins, computerWins);
+                    playerWins = redThreadScores[0];
+                    computerWins = redThreadScores[1];
+                    break;
                 default:
                     System.out.println("Invalid choice, please select again.");
             }

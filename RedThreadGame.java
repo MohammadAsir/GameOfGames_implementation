@@ -15,11 +15,11 @@ public class RedThreadGame {
             displayGameState();
             if (player1Turn) {
                 System.out.println("Player 1, pick threads?");
-                int threads = scanner.nextInt();
+                int threads = getValidInput(scanner);
 
                 while (threads > total / 2 || threads <= 0) {
                     System.out.println("Invalid number! You can only pick up to half of the remaining threads. Try again:");
-                    threads = scanner.nextInt();
+                    threads = getValidInput(scanner);
                 }
 
                 drawThreads(threads);
@@ -42,7 +42,6 @@ public class RedThreadGame {
 
             switchTurns();
         }
-        //scanner.close();
         return new int[]{playerScore, computerScore}; // Return updated scores
     }
 
@@ -82,5 +81,20 @@ public class RedThreadGame {
             System.out.println("Congratulations! " + (player1Turn ? "Player 1" : "Computer") + " wins!");
         }
         System.out.println("Game Over!");
+    }
+
+    private static int getValidInput(Scanner scanner) {
+        int input = -1;
+        while (true) {
+            try {
+                System.out.print("Enter a valid number: ");
+                input = scanner.nextInt();
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid input! Please enter a valid integer.");
+                scanner.next(); // Clear the invalid input
+            }
+        }
+        return input;
     }
 }
