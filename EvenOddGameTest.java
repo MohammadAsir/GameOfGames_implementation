@@ -1,36 +1,59 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class EvenOddGameTest {
-    private static String playerInput;
-    private static String computerInput;
-    private static int playerScore = 0;
-    private static int computerScore = 0;
-    private static int rounds;
 
     public static int[] startGameTestMode(int totalPlayerScore, int totalComputerScore) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
         System.out.println("Test Mode - Welcome to the Even-Odd Game!");
 
-        // Fixed number of rounds for test mode (e.g., 3 rounds)
-        rounds = 3;
-        System.out.println("Rounds: " + rounds);
+        // Loop to get a valid number of rounds (must be odd)
+        while (true) {
+            System.out.println("How many rounds would you like to play? (must be an odd integer): ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid input! Enter a valid integer.");
+                scanner.next();
+                continue;
+            }
 
-        // Set player choice for testing
-        playerInput = "odd";
-        computerInput = "even";
-        System.out.println("Player chooses: " + playerInput + ". Computer is: " + computerInput);
+            int inputRounds = scanner.nextInt();
+            if (inputRounds % 2 == 0) {
+                System.out.println("Invalid input! Enter an odd number.");
+            } else {
+                rounds = inputRounds;
+                break;
+            }
+        }
 
+        // Get player's choice: odd or even
+        System.out.println("Please choose: Odd or Even");
+        scanner.nextLine(); // Consume newline
+        String choice = scanner.nextLine().trim().toLowerCase();
+
+        // Validate the player's choice
+        while (!choice.equals("odd") && !choice.equals("even")) {
+            System.out.println("Invalid choice. Choose 'Odd' or 'Even': ");
+            choice = scanner.nextLine().trim().toLowerCase();
+        }
+        choices(choice);
+
+        // Main game loop for the specified number of rounds
         for (int i = 1; i <= rounds; i++) {
             System.out.println("\nRound " + i);
-            int playerFingers = playerFingersTest();
-            int computerFingers = computerFingersTest();
 
-            System.out.println("[Test Mode] Player revealed: " + playerFingers);
-            System.out.println("[Test Mode] Computer revealed: " + computerFingers);
+            // Get player and computer's number of fingers
+            int playerFingers = playerFingersTestMode(scanner);
+            int computerFingers = computerFingersTestMode(random);
 
+            System.out.println("Test Mode: Player revealed: " + playerFingers);
+            System.out.println("Test Mode: Computer revealed: " + computerFingers);
+
+            // Calculate the sum and determine the winner of the round
             int sum = playerFingers + computerFingers;
             boolean playerWon = isOdd(sum) == playerInput.equals("odd");
 
-            System.out.println("The sum is " + sum + " (" + (isOdd(sum) ? "Odd" : "Even") + ").");
+            System.out.println("Test Mode: The sum is " + sum + " (" + (isOdd(sum) ? "Odd" : "Even") + ").");
             if (playerWon) {
                 System.out.println("Player wins this round!");
                 playerScore++;
@@ -39,55 +62,47 @@ public class EvenOddGameTest {
                 computerScore++;
             }
 
+            // Display updated scores
             updateScores();
         }
 
+        // Announce the winner of the game
         displayWinner();
 
-        // Update total scores
+        // Update total scores across sessions
         totalPlayerScore += playerScore;
         totalComputerScore += computerScore;
 
+        // Reset the game state for a new session
         resetGame();
 
-        System.out.println("Test Mode: Game over.");
-        return new int[]{totalPlayerScore, totalComputerScore};
-    }
-
-    private static int playerFingersTest() {
-        // Fixed number for player fingers (e.g., always 3 for testing)
-        return 3;
-    }
-
-    private static int computerFingersTest() {
-        // Random number for computer fingers
-        Random random = new Random();
-        return random.nextInt(5) + 1;
-    }
-
-    private static boolean isOdd(int sum) {
-        return sum % 2 != 0;
-    }
-
-    private static void updateScores() {
-        System.out.println("Scoreboard:");
-        System.out.println("Player: " + playerScore + " | Computer: " + computerScore);
-    }
-
-    private static void displayWinner() {
-        System.out.println("Game Over!");
-        if (playerScore > computerScore) {
-            System.out.println("Player wins the game!");
-        } else if (computerScore > playerScore) {
-            System.out.println("Computer wins the game!");
+        // Prompt user to replay the game
+        System.out.println("Would you like to play again? (yes/no): ");
+        String replay = scanner.nextLine().trim().toLowerCase();
+        if (replay.equals("yes")) {
+            return startGameTestMode(totalPlayerScore, totalComputerScore);
         } else {
-            System.out.println("It's a tie!");
+            System.out.println("Test Mode: Thank you for playing! Goodbye.");
+            return new int[]{totalPlayerScore, totalComputerScore}; // Return the updated total scores
         }
     }
 
-    private static void resetGame() {
-        playerScore = 0;
-        computerScore = 0;
+    // Helper method for player fingers in test mode
+    private static int playerFingersTestMode(Scanner scanner) {
+        System.out.println("Enter a number of fingers to reveal (1-5): ");
+        int fingers = scanner.nextInt();
+        while (fingers < 1 || fingers > 5) {
+            System.out.println("Invalid input. Please enter a number between 1 and 5: ");
+            fingers = scanner.nextInt();
+        }
+        return fingers;
+    }
+
+    // Helper method for computer fingers in test mode
+    private static int computerFingersTestMode(Random random) {
+        int fingers = random.nextInt(5) + 1;
+        System.out.println("Test Mode: Computer randomly reveals " + fingers);
+        return fingers;
     }
 
     public static void main(String[] args) {
